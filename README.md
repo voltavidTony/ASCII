@@ -2,7 +2,7 @@
 This portable .exe file is a complete Windows 1252 character panel. It displays Hex, Decimal, and String values for characters 0 - 255. Best of all, it's a keyboard! Just double click on a character to insert it wherever the cursor is!
 The program appears on top of normal windows and doesn't accept focus, so that you can keep typing even if you click something in it.
 
-[Download](https://drive.google.com/open?id=1AhAfD4ZWCQOpfAyPDRKEfE3WCpYiexfa) - Some virus programs prevent running .exe files from unknown publishers. Simply unblock the .exe by going into the general properties (Alt + Enter) and checking 'Unblock' at the bottom.
+[Download](https://drive.google.com/open?id=1AhAfD4ZWCQOpfAyPDRKEfE3WCpYiexfa) - Windows will warn you about running this .exe file, since it is from an unknown publisher. Simply unblock the .exe by going into the general properties (Alt + Enter) and checking 'Unblock' at the bottom.
 
 ## Settings
 - Show Control Characters
