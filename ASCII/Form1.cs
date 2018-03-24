@@ -35,7 +35,8 @@ namespace ASCII
         [DllImport("User32.dll")]
         static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
 
-        Color PenColor = Color.FromArgb(unchecked((int)0xFF292929));
+        Color PenColor = Color.Black;
+        float PenWidth = 0.2f;
 
         bool changing = false;
 
@@ -154,22 +155,32 @@ namespace ASCII
             changing = false;
         }
 
-        private void CloseButton_MouseEnter(object sender, EventArgs e) => PenColor = Color.White;
+        private void CloseButton_MouseEnter(object sender, EventArgs e)
+        {
+            PenColor = Color.White;
+            PenWidth = 0.3f;
+        }
 
-        private void CloseButton_MouseLeave(object sender, EventArgs e) => PenColor = Color.FromArgb(unchecked((int)0xFF292929));
+        private void CloseButton_MouseLeave(object sender, EventArgs e)
+        {
+            PenColor = Color.Black;
+            PenWidth = 0.2f;
+        }
 
         private void CloseButton_Paint(object sender, PaintEventArgs e)
         {
-            Rectangle bounds = new Rectangle(closeButton.Width / 2 - 5, closeButton.Height / 2 - 5, 10, 10);
+            Rectangle bounds = new Rectangle(closeButton.Width / 2 - 5, closeButton.Height / 2 - 5, 9, 9);
             GraphicsPath closeX = new GraphicsPath();
-            float width = 0.3f;
 
-            closeX.AddPolygon(new PointF[] { new PointF(bounds.Left + width, bounds.Top), new PointF(bounds.Right, bounds.Bottom - width),
-                new PointF(bounds.Right - width, bounds.Bottom), new PointF(bounds.Left, bounds.Top + width) });
-            closeX.AddPolygon(new PointF[] { new PointF(bounds.Left + width, bounds.Bottom), new PointF(bounds.Right, bounds.Top + width),
-                new PointF(bounds.Right - width, bounds.Top), new PointF(bounds.Left, bounds.Bottom - width) });
+            closeX.AddPolygon(new PointF[] { new PointF(bounds.Left, bounds.Top), new PointF(bounds.Left + PenWidth, bounds.Top),
+                new PointF(bounds.Right, bounds.Bottom - PenWidth), new PointF(bounds.Right, bounds.Bottom),
+                new PointF(bounds.Right - PenWidth, bounds.Bottom), new PointF(bounds.Left, bounds.Top + PenWidth) });
+            closeX.AddPolygon(new PointF[] { new PointF(bounds.Left, bounds.Bottom), new PointF(bounds.Left + PenWidth, bounds.Bottom),
+                new PointF(bounds.Right, bounds.Top + PenWidth), new PointF(bounds.Right, bounds.Top),
+                new PointF(bounds.Right - PenWidth, bounds.Top), new PointF(bounds.Left, bounds.Bottom - PenWidth) });
 
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+            e.Graphics.PixelOffsetMode = PixelOffsetMode.None;
             e.Graphics.DrawPath(new Pen(PenColor, 1), closeX);
         }
 

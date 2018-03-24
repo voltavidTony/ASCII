@@ -30,24 +30,24 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ASCIIWindow));
             this.tableMain = new System.Windows.Forms.TableLayoutPanel();
-            this.tableOptions = new System.Windows.Forms.TableLayoutPanel();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.trackOpaque = new System.Windows.Forms.TrackBar();
-            this.labelOpaque = new System.Windows.Forms.Label();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.closeButton = new System.Windows.Forms.Button();
             this.description = new System.Windows.Forms.Label();
+            this.charPanelBorder = new System.Windows.Forms.Panel();
             this.charPanel = new System.Windows.Forms.ListView();
             this.columnHeaderHex = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderValue = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderChar = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.tableOptions = new System.Windows.Forms.TableLayoutPanel();
+            this.closeButton = new System.Windows.Forms.Button();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.trackOpaque = new System.Windows.Forms.TrackBar();
             this.title = new System.Windows.Forms.Label();
-            this.charPanelBorder = new System.Windows.Forms.Panel();
+            this.labelOpaque = new System.Windows.Forms.Label();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.tableMain.SuspendLayout();
+            this.charPanelBorder.SuspendLayout();
             this.tableOptions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackOpaque)).BeginInit();
-            this.charPanelBorder.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableMain
@@ -73,132 +73,11 @@
             this.tableMain.TabIndex = 1;
             this.tableMain.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PanelDrag_MouseDown);
             // 
-            // tableOptions
-            // 
-            this.tableOptions.BackColor = System.Drawing.Color.White;
-            this.tableOptions.ColumnCount = 2;
-            this.tableOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 45F));
-            this.tableOptions.Controls.Add(this.closeButton, 1, 0);
-            this.tableOptions.Controls.Add(this.checkBox1, 0, 1);
-            this.tableOptions.Controls.Add(this.checkBox2, 0, 2);
-            this.tableOptions.Controls.Add(this.trackOpaque, 0, 4);
-            this.tableOptions.Controls.Add(this.title, 0, 0);
-            this.tableOptions.Controls.Add(this.labelOpaque, 1, 4);
-            this.tableOptions.Controls.Add(this.checkBox3, 0, 3);
-            this.tableOptions.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableOptions.Location = new System.Drawing.Point(216, 0);
-            this.tableOptions.Margin = new System.Windows.Forms.Padding(0);
-            this.tableOptions.Name = "tableOptions";
-            this.tableOptions.Padding = new System.Windows.Forms.Padding(1);
-            this.tableOptions.RowCount = 5;
-            this.tableOptions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
-            this.tableOptions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableOptions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableOptions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableOptions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableOptions.Size = new System.Drawing.Size(216, 114);
-            this.tableOptions.TabIndex = 0;
-            this.tableOptions.Paint += new System.Windows.Forms.PaintEventHandler(this.Border_Paint);
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.tableOptions.SetColumnSpan(this.checkBox1, 2);
-            this.checkBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox1.Location = new System.Drawing.Point(4, 33);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(211, 20);
-            this.checkBox1.TabIndex = 0;
-            this.checkBox1.Text = "Show Control Characters";
-            this.checkBox1.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckStateChanged += new System.EventHandler(this.CheckBox_CheckStateChanged);
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.tableOptions.SetColumnSpan(this.checkBox2, 2);
-            this.checkBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox2.Location = new System.Drawing.Point(4, 53);
-            this.checkBox2.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(211, 20);
-            this.checkBox2.TabIndex = 1;
-            this.checkBox2.Text = "Sort Lexicographically";
-            this.checkBox2.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
-            this.checkBox2.UseVisualStyleBackColor = true;
-            this.checkBox2.CheckStateChanged += new System.EventHandler(this.CheckBox_CheckStateChanged);
-            // 
-            // trackOpaque
-            // 
-            this.trackOpaque.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.trackOpaque.LargeChange = 10;
-            this.trackOpaque.Location = new System.Drawing.Point(1, 93);
-            this.trackOpaque.Margin = new System.Windows.Forms.Padding(0);
-            this.trackOpaque.Maximum = 100;
-            this.trackOpaque.Minimum = 50;
-            this.trackOpaque.Name = "trackOpaque";
-            this.trackOpaque.Size = new System.Drawing.Size(169, 20);
-            this.trackOpaque.SmallChange = 5;
-            this.trackOpaque.TabIndex = 5;
-            this.trackOpaque.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.trackOpaque.Value = 100;
-            this.trackOpaque.ValueChanged += new System.EventHandler(this.TrackOpaque_ValueChanged);
-            // 
-            // labelOpaque
-            // 
-            this.labelOpaque.AutoSize = true;
-            this.labelOpaque.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelOpaque.Location = new System.Drawing.Point(170, 93);
-            this.labelOpaque.Margin = new System.Windows.Forms.Padding(0);
-            this.labelOpaque.Name = "labelOpaque";
-            this.labelOpaque.Padding = new System.Windows.Forms.Padding(0, 0, 3, 0);
-            this.labelOpaque.Size = new System.Drawing.Size(45, 20);
-            this.labelOpaque.TabIndex = 6;
-            this.labelOpaque.Text = "100 %";
-            this.labelOpaque.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // checkBox3
-            // 
-            this.checkBox3.AutoSize = true;
-            this.tableOptions.SetColumnSpan(this.checkBox3, 2);
-            this.checkBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox3.Location = new System.Drawing.Point(4, 73);
-            this.checkBox3.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(211, 20);
-            this.checkBox3.TabIndex = 7;
-            this.checkBox3.Text = "Transparency";
-            this.checkBox3.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
-            this.checkBox3.UseVisualStyleBackColor = true;
-            this.checkBox3.CheckStateChanged += new System.EventHandler(this.CheckBox_CheckStateChanged);
-            // 
-            // closeButton
-            // 
-            this.closeButton.BackColor = System.Drawing.Color.Transparent;
-            this.closeButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.closeButton.FlatAppearance.BorderSize = 0;
-            this.closeButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(236)))), ((int)(((byte)(0)))), ((int)(((byte)(33)))));
-            this.closeButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(0)))), ((int)(((byte)(33)))));
-            this.closeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.closeButton.Location = new System.Drawing.Point(170, 1);
-            this.closeButton.Margin = new System.Windows.Forms.Padding(0, 0, 0, 1);
-            this.closeButton.Name = "closeButton";
-            this.closeButton.Size = new System.Drawing.Size(45, 31);
-            this.closeButton.TabIndex = 3;
-            this.closeButton.UseVisualStyleBackColor = false;
-            this.closeButton.Click += new System.EventHandler(this.CloseButton_Click);
-            this.closeButton.Paint += new System.Windows.Forms.PaintEventHandler(this.CloseButton_Paint);
-            this.closeButton.MouseEnter += new System.EventHandler(this.CloseButton_MouseEnter);
-            this.closeButton.MouseLeave += new System.EventHandler(this.CloseButton_MouseLeave);
-            // 
             // description
             // 
             this.description.AutoSize = true;
             this.description.BackColor = System.Drawing.Color.White;
-            this.description.Location = new System.Drawing.Point(216, 114);
+            this.description.Location = new System.Drawing.Point(216, 112);
             this.description.Margin = new System.Windows.Forms.Padding(0);
             this.description.Name = "description";
             this.description.Padding = new System.Windows.Forms.Padding(4);
@@ -208,6 +87,20 @@
     "ick to insert";
             this.description.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.description.Paint += new System.Windows.Forms.PaintEventHandler(this.Border_Paint);
+            // 
+            // charPanelBorder
+            // 
+            this.charPanelBorder.BackColor = System.Drawing.Color.White;
+            this.charPanelBorder.Controls.Add(this.charPanel);
+            this.charPanelBorder.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.charPanelBorder.Location = new System.Drawing.Point(0, 0);
+            this.charPanelBorder.Margin = new System.Windows.Forms.Padding(0);
+            this.charPanelBorder.Name = "charPanelBorder";
+            this.charPanelBorder.Padding = new System.Windows.Forms.Padding(1);
+            this.tableMain.SetRowSpan(this.charPanelBorder, 3);
+            this.charPanelBorder.Size = new System.Drawing.Size(216, 432);
+            this.charPanelBorder.TabIndex = 7;
+            this.charPanelBorder.Paint += new System.Windows.Forms.PaintEventHandler(this.Border_Paint);
             // 
             // charPanel
             // 
@@ -246,6 +139,101 @@
             this.columnHeaderChar.Text = "Character";
             this.columnHeaderChar.Width = 80;
             // 
+            // tableOptions
+            // 
+            this.tableOptions.AutoSize = true;
+            this.tableOptions.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tableOptions.BackColor = System.Drawing.Color.White;
+            this.tableOptions.ColumnCount = 2;
+            this.tableOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 45F));
+            this.tableOptions.Controls.Add(this.closeButton, 1, 0);
+            this.tableOptions.Controls.Add(this.checkBox1, 0, 1);
+            this.tableOptions.Controls.Add(this.checkBox2, 0, 2);
+            this.tableOptions.Controls.Add(this.trackOpaque, 0, 4);
+            this.tableOptions.Controls.Add(this.title, 0, 0);
+            this.tableOptions.Controls.Add(this.labelOpaque, 1, 4);
+            this.tableOptions.Controls.Add(this.checkBox3, 0, 3);
+            this.tableOptions.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableOptions.Location = new System.Drawing.Point(216, 0);
+            this.tableOptions.Margin = new System.Windows.Forms.Padding(0);
+            this.tableOptions.Name = "tableOptions";
+            this.tableOptions.Padding = new System.Windows.Forms.Padding(1);
+            this.tableOptions.RowCount = 5;
+            this.tableOptions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableOptions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableOptions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableOptions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableOptions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableOptions.Size = new System.Drawing.Size(216, 112);
+            this.tableOptions.TabIndex = 0;
+            this.tableOptions.Paint += new System.Windows.Forms.PaintEventHandler(this.Border_Paint);
+            // 
+            // closeButton
+            // 
+            this.closeButton.BackColor = System.Drawing.Color.Transparent;
+            this.closeButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.closeButton.FlatAppearance.BorderSize = 0;
+            this.closeButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(236)))), ((int)(((byte)(0)))), ((int)(((byte)(33)))));
+            this.closeButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(236)))), ((int)(((byte)(0)))), ((int)(((byte)(33)))));
+            this.closeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.closeButton.Location = new System.Drawing.Point(170, 1);
+            this.closeButton.Margin = new System.Windows.Forms.Padding(0, 0, 0, 1);
+            this.closeButton.Name = "closeButton";
+            this.closeButton.Size = new System.Drawing.Size(45, 29);
+            this.closeButton.TabIndex = 3;
+            this.closeButton.UseVisualStyleBackColor = false;
+            this.closeButton.Click += new System.EventHandler(this.CloseButton_Click);
+            this.closeButton.Paint += new System.Windows.Forms.PaintEventHandler(this.CloseButton_Paint);
+            this.closeButton.MouseEnter += new System.EventHandler(this.CloseButton_MouseEnter);
+            this.closeButton.MouseLeave += new System.EventHandler(this.CloseButton_MouseLeave);
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.tableOptions.SetColumnSpan(this.checkBox1, 2);
+            this.checkBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkBox1.Location = new System.Drawing.Point(4, 31);
+            this.checkBox1.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(211, 20);
+            this.checkBox1.TabIndex = 0;
+            this.checkBox1.Text = "Show Control Characters";
+            this.checkBox1.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckStateChanged += new System.EventHandler(this.CheckBox_CheckStateChanged);
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.tableOptions.SetColumnSpan(this.checkBox2, 2);
+            this.checkBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkBox2.Location = new System.Drawing.Point(4, 51);
+            this.checkBox2.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(211, 20);
+            this.checkBox2.TabIndex = 1;
+            this.checkBox2.Text = "Sort Lexicographically";
+            this.checkBox2.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBox2.CheckStateChanged += new System.EventHandler(this.CheckBox_CheckStateChanged);
+            // 
+            // trackOpaque
+            // 
+            this.trackOpaque.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.trackOpaque.LargeChange = 10;
+            this.trackOpaque.Location = new System.Drawing.Point(1, 91);
+            this.trackOpaque.Margin = new System.Windows.Forms.Padding(0);
+            this.trackOpaque.Maximum = 100;
+            this.trackOpaque.Minimum = 50;
+            this.trackOpaque.Name = "trackOpaque";
+            this.trackOpaque.Size = new System.Drawing.Size(169, 20);
+            this.trackOpaque.SmallChange = 5;
+            this.trackOpaque.TabIndex = 5;
+            this.trackOpaque.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trackOpaque.Value = 100;
+            this.trackOpaque.ValueChanged += new System.EventHandler(this.TrackOpaque_ValueChanged);
+            // 
             // title
             // 
             this.title.AutoSize = true;
@@ -256,25 +244,39 @@
             this.title.Margin = new System.Windows.Forms.Padding(0);
             this.title.Name = "title";
             this.title.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this.title.Size = new System.Drawing.Size(169, 32);
+            this.title.Size = new System.Drawing.Size(169, 30);
             this.title.TabIndex = 4;
             this.title.Text = "ASCII";
             this.title.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.title.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PanelDrag_MouseDown);
             // 
-            // charPanelBorder
+            // labelOpaque
             // 
-            this.charPanelBorder.BackColor = System.Drawing.Color.White;
-            this.charPanelBorder.Controls.Add(this.charPanel);
-            this.charPanelBorder.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.charPanelBorder.Location = new System.Drawing.Point(0, 0);
-            this.charPanelBorder.Margin = new System.Windows.Forms.Padding(0);
-            this.charPanelBorder.Name = "charPanelBorder";
-            this.charPanelBorder.Padding = new System.Windows.Forms.Padding(1);
-            this.tableMain.SetRowSpan(this.charPanelBorder, 3);
-            this.charPanelBorder.Size = new System.Drawing.Size(216, 432);
-            this.charPanelBorder.TabIndex = 7;
-            this.charPanelBorder.Paint += new System.Windows.Forms.PaintEventHandler(this.Border_Paint);
+            this.labelOpaque.AutoSize = true;
+            this.labelOpaque.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelOpaque.Location = new System.Drawing.Point(170, 91);
+            this.labelOpaque.Margin = new System.Windows.Forms.Padding(0);
+            this.labelOpaque.Name = "labelOpaque";
+            this.labelOpaque.Padding = new System.Windows.Forms.Padding(0, 0, 3, 0);
+            this.labelOpaque.Size = new System.Drawing.Size(45, 20);
+            this.labelOpaque.TabIndex = 6;
+            this.labelOpaque.Text = "100 %";
+            this.labelOpaque.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // checkBox3
+            // 
+            this.checkBox3.AutoSize = true;
+            this.tableOptions.SetColumnSpan(this.checkBox3, 2);
+            this.checkBox3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkBox3.Location = new System.Drawing.Point(4, 71);
+            this.checkBox3.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(211, 20);
+            this.checkBox3.TabIndex = 7;
+            this.checkBox3.Text = "Transparency";
+            this.checkBox3.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.checkBox3.UseVisualStyleBackColor = true;
+            this.checkBox3.CheckStateChanged += new System.EventHandler(this.CheckBox_CheckStateChanged);
             // 
             // ASCIIWindow
             // 
@@ -293,10 +295,10 @@
             this.TransparencyKey = System.Drawing.Color.Lime;
             this.tableMain.ResumeLayout(false);
             this.tableMain.PerformLayout();
+            this.charPanelBorder.ResumeLayout(false);
             this.tableOptions.ResumeLayout(false);
             this.tableOptions.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackOpaque)).EndInit();
-            this.charPanelBorder.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
