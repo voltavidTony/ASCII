@@ -9,7 +9,7 @@ namespace ASCII
     public partial class ASCIIWindow : Form
     {
         [DllImport("dwmapi.dll", EntryPoint = "#127")]
-        static extern void DwmGetColorizationParameters(ref DWMCOLORIZATIONcolors colors);
+        static extern void DwmGetColorizationParameters(out DWMCOLORIZATIONcolors colors);
         public struct DWMCOLORIZATIONcolors
         {
             public uint ColorizationColor,
@@ -24,8 +24,7 @@ namespace ASCII
         {
             get
             {
-                var colors = new DWMCOLORIZATIONcolors();
-                DwmGetColorizationParameters(ref colors);
+                DwmGetColorizationParameters(out DWMCOLORIZATIONcolors colors);
                 return Color.FromArgb((byte)(colors.ColorizationColor >> 16), (byte)(colors.ColorizationColor >> 8), (byte)colors.ColorizationColor);
             }
         }
