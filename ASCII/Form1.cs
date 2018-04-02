@@ -25,7 +25,7 @@ namespace ASCII
             get
             {
                 DwmGetColorizationParameters(out DWMCOLORIZATIONcolors colors);
-                return Color.FromArgb((byte)(colors.ColorizationColor >> 16), (byte)(colors.ColorizationColor >> 8), (byte)colors.ColorizationColor);
+                return Color.FromArgb((int)colors.ColorizationColor | ~0xFFFFFF);
             }
         }
 
