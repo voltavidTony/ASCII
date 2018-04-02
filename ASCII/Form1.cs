@@ -140,16 +140,14 @@ namespace ASCII
 
         private void CheckBox_CheckStateChanged(object sender, EventArgs e)
         {
-            CheckBox chkb = (CheckBox)sender;
-            if (chkb.Name.Equals("checkBox1")) RefreshCharPanel(checkBox1.Checked, checkBox2.Checked);
-            if (chkb.Name.Equals("checkBox2")) RefreshCharPanel(checkBox1.Checked, checkBox2.Checked);
-            if (chkb.Name.Equals("checkBox3") && !changing) trackOpaque.Value = chkb.Checked ? 70 : 100;
+            if (sender.Equals(checkBox3) && !changing) trackOpaque.Value = checkBox3.Checked ? 70 : 100;
+            else RefreshCharPanel(checkBox1.Checked, checkBox2.Checked);
         }
 
         private void TrackOpaque_ValueChanged(object sender, EventArgs e)
         {
-            labelOpaque.Text = $"{trackOpaque.Value} %";
             changing = true;
+            labelOpaque.Text = $"{trackOpaque.Value} %";
             checkBox3.Checked = (Opacity = trackOpaque.Value / 100.0) != 1.0;
             changing = false;
         }
