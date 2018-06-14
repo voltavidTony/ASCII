@@ -86,7 +86,7 @@ namespace ASCII
         public ASCIIWindow()
         {
             InitializeComponent();
-            RefreshCharPanel(false, false);
+            RefreshCharPanel();
             Height = charPanel.Items[16].Bounds.Y + 2;
             Width = (columnHeaderHex.Width + columnHeaderValue.Width + columnHeaderChar.Width + SystemInformation.VerticalScrollBarWidth + 2) * 2;
         }
@@ -140,8 +140,8 @@ namespace ASCII
 
         private void CheckBox_CheckStateChanged(object sender, EventArgs e)
         {
-            if (sender.Equals(checkBox3) && !changing) trackOpaque.Value = checkBox3.Checked ? 70 : 100;
-            else RefreshCharPanel(checkBox1.Checked, checkBox2.Checked);
+            if (!sender.Equals(checkBox3)) RefreshCharPanel();
+            else if (!changing) trackOpaque.Value = checkBox3.Checked ? 70 : 100;
         }
 
         private void TrackOpaque_ValueChanged(object sender, EventArgs e)
@@ -181,14 +181,14 @@ namespace ASCII
             e.Graphics.DrawPath(new Pen(PenColor, 1), closeX);
         }
 
-        private void RefreshCharPanel(bool control, bool lexico)
+        private void RefreshCharPanel()
         {
             charPanel.Items.Clear();
 
             for (int i = 0; i < 256; i++)
             {
-                int id = lexico ? lexicoid[i] : i;
-                if (!control && names[id].Length > 1 && id != 32 && id != 160) continue;
+                int id = checkBox2.Checked ? lexicoid[i] : i;
+                if (!checkBox1.Checked && names[id].Length > 1 && id != 32 && id != 160) continue;
 
                 charPanel.Items.Add(new ListViewItem(new string[] { $"{id:X2}", $"{id}", names[id] }) { ForeColor = GetColor(id) });
             }
