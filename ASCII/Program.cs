@@ -1,20 +1,21 @@
-﻿using System;
-using System.Linq;
+﻿using System.Threading;
 using System.Windows.Forms;
 
 namespace ASCII
 {
     static class Program
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
-        [STAThread]
+        private static Mutex mutex = null;
+
+        [System.STAThread]
         static void Main()
         {
+            mutex = new Mutex(true, "AE0C75E0-47CE-4112-8FEA-E9DED9C748C0", out bool created);
+            if (!created) return;
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            if (System.Diagnostics.Process.GetProcessesByName("ASCII").Count() == 1) Application.Run(new ASCIIWindow());
+            Application.Run(new ASCIIWindow());
         }
     }
 }
