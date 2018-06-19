@@ -116,25 +116,22 @@ namespace ASCII
 
         private void CharPanel_DoubleClick(object sender, EventArgs e)
         {
-            int input = int.Parse(charPanel.SelectedItems[0].SubItems[1].Text);
-            if (input == 32)
+            string letter = names[int.Parse(charPanel.SelectedItems[0].SubItems[1].Text)];
+            if (letter.Equals("Space"))
             {
                 SendKeys.Send(" ");
                 return;
             }
-            if (input == 160)
+            if (letter.Equals("NBSP"))
             {
                 SendKeys.Send(" ");
                 return;
             }
-
-            string letter = names[input];
             if (letter.Length > 1)
             {
                 System.Media.SystemSounds.Asterisk.Play();
                 return;
             }
-
             SendKeys.Send("%()+[]^{}~".Contains($"{letter}") ? $"{{{letter}}}" : $"{letter}");
         }
 
@@ -184,21 +181,18 @@ namespace ASCII
         private void RefreshCharPanel()
         {
             charPanel.Items.Clear();
-
             for (int i = 0; i < 256; i++)
             {
                 int id = checkBox2.Checked ? lexicoid[i] : i;
                 if (!checkBox1.Checked && names[id].Length > 1 && id != 32 && id != 160) continue;
-
                 charPanel.Items.Add(new ListViewItem(new string[] { $"{id:X2}", $"{id}", names[id] }) { ForeColor = GetColor(id) });
             }
         }
 
         private Color GetColor(int id)
         {
-            if (id == 32 || id == 160) return Color.Black;
-            if (names[id].Length > 1) return Color.Crimson;
-            return Color.Black;
+            if (names[id].Length == 0 || id == 32 || id == 160) return Color.Black;
+            return Color.Crimson;
         }
     }
 }
