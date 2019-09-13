@@ -1,5 +1,5 @@
 /*
-ASCII - Windows 1252 character panel with numerical values and character insertion
+ASCII - Windows 1252 character panel with numerical values and SendKeys funcionality
 Copyright (C) 2018  voltavidTony
 
 This program is free software: you can redistribute it and/or modify
