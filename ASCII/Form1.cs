@@ -22,14 +22,11 @@ using System.Drawing.Drawing2D;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace ASCII
-{
-    public partial class ASCIIWindow : Form
-    {
+namespace ASCII {
+    public partial class ASCIIWindow : Form {
         [DllImport("dwmapi.dll", EntryPoint = "#127")]
         static extern void DwmGetColorizationParameters(out DWMCOLORIZATIONcolors colors);
-        public struct DWMCOLORIZATIONcolors
-        {
+        public struct DWMCOLORIZATIONcolors {
             public uint ColorizationColor,
                 ColorizationAfterglow,
                 ColorizationColorBalance,
@@ -38,10 +35,8 @@ namespace ASCII
                 ColorizationGlassReflectionIntensity,
                 ColorizationOpaqueBlend;
         }
-        Color AccentColor
-        {
-            get
-            {
+        Color AccentColor {
+            get {
                 DwmGetColorizationParameters(out DWMCOLORIZATIONcolors colors);
                 return Color.FromArgb((int)colors.ColorizationColor | ~0xFFFFFF);
             }
@@ -80,20 +75,16 @@ namespace ASCII
             "Ö", "×", "Ø", "Ù", "Ú", "Û", "Ü", "Ý", "Þ", "ß", "à", "á", "â", "ã", "ä", "å", "æ", "ç", "è", "é", "ê", "ë", "ì", "í", "î", "ï",
             "ð", "ñ", "ò", "ó", "ô", "õ", "ö", "÷", "ø", "ù", "ú", "û", "ü", "ý", "þ", "ÿ" };
 
-        protected override CreateParams CreateParams
-        {
-            get
-            {
+        protected override CreateParams CreateParams {
+            get {
                 CreateParams cp = base.CreateParams;
                 cp.ExStyle |= 0x08000000;
                 return cp;
             }
         }
 
-        protected override void WndProc(ref Message m)
-        {
-            if (m.Msg == 0x320)
-            {
+        protected override void WndProc(ref Message m) {
+            if (m.Msg == 0x320) {
                 charPanelBorder.Invalidate();
                 tableOptions.Invalidate();
                 description.Invalidate();
@@ -101,8 +92,7 @@ namespace ASCII
             base.WndProc(ref m);
         }
 
-        public ASCIIWindow()
-        {
+        public ASCIIWindow() {
             InitializeComponent();
             RefreshCharPanel();
             Height = charPanel.Items[16].Bounds.Y + 2;
@@ -111,8 +101,7 @@ namespace ASCII
 
         private void CloseButton_Click(object sender, EventArgs e) => Application.Exit();
 
-        private void PanelDrag_MouseDown(object sender, MouseEventArgs e)
-        {
+        private void PanelDrag_MouseDown(object sender, MouseEventArgs e) {
             ReleaseCapture();
             SendMessage(Handle, 0xA1, 0x2, 0);
             int i = charPanel.TopItem.Index;
@@ -121,66 +110,55 @@ namespace ASCII
             charPanel.TopItem = charPanel.Items[i];
         }
 
-        private void Border_Paint(object sender, PaintEventArgs e)
-        {
+        private void Border_Paint(object sender, PaintEventArgs e) {
             if (sender is Control c) e.Graphics.DrawRectangle(new Pen(AccentColor, 1), new Rectangle(0, 0, c.Width - 1, c.Height - 1));
         }
 
-        private void CharPanel_ColumnWidthChanging(object sender, ColumnWidthChangingEventArgs e)
-        {
+        private void CharPanel_ColumnWidthChanging(object sender, ColumnWidthChangingEventArgs e) {
             e.NewWidth = charPanel.Columns[e.ColumnIndex].Width;
             e.Cancel = true;
         }
 
-        private void CharPanel_DoubleClick(object sender, EventArgs e)
-        {
+        private void CharPanel_DoubleClick(object sender, EventArgs e) {
             string letter = names[int.Parse(charPanel.SelectedItems[0].SubItems[1].Text)];
-            if (letter.Equals("Space"))
-            {
+            if (letter.Equals("Space")) {
                 SendKeys.Send(" ");
                 return;
             }
-            if (letter.Equals("NBSP"))
-            {
+            if (letter.Equals("NBSP")) {
                 SendKeys.Send(" ");
                 return;
             }
-            if (letter.Length > 1)
-            {
+            if (letter.Length > 1) {
                 System.Media.SystemSounds.Asterisk.Play();
                 return;
             }
             SendKeys.Send("%()+[]^{}~".Contains($"{letter}") ? $"{{{letter}}}" : $"{letter}");
         }
 
-        private void CheckBox_CheckStateChanged(object sender, EventArgs e)
-        {
+        private void CheckBox_CheckStateChanged(object sender, EventArgs e) {
             if (!sender.Equals(checkBox3)) RefreshCharPanel();
             else if (!changing) trackOpaque.Value = checkBox3.Checked ? 70 : 100;
         }
 
-        private void TrackOpaque_ValueChanged(object sender, EventArgs e)
-        {
+        private void TrackOpaque_ValueChanged(object sender, EventArgs e) {
             changing = true;
             labelOpaque.Text = $"{trackOpaque.Value} %";
             checkBox3.Checked = (Opacity = trackOpaque.Value / 100.0) != 1.0;
             changing = false;
         }
 
-        private void CloseButton_MouseEnter(object sender, EventArgs e)
-        {
+        private void CloseButton_MouseEnter(object sender, EventArgs e) {
             PenColor = Color.White;
             PenWidth = 0.3f;
         }
 
-        private void CloseButton_MouseLeave(object sender, EventArgs e)
-        {
+        private void CloseButton_MouseLeave(object sender, EventArgs e) {
             PenColor = Color.Black;
             PenWidth = 0.2f;
         }
 
-        private void CloseButton_Paint(object sender, PaintEventArgs e)
-        {
+        private void CloseButton_Paint(object sender, PaintEventArgs e) {
             Rectangle bounds = new Rectangle(closeButton.Width / 2 - 5, closeButton.Height / 2 - 5, 9, 9);
             GraphicsPath closeX = new GraphicsPath();
 
@@ -196,21 +174,15 @@ namespace ASCII
             e.Graphics.DrawPath(new Pen(PenColor, 1), closeX);
         }
 
-        private void RefreshCharPanel()
-        {
+        private void RefreshCharPanel() {
             charPanel.Items.Clear();
-            for (int i = 0; i < 256; i++)
-            {
+            for (int i = 0; i < 256; i++) {
                 int id = checkBox2.Checked ? lexicoid[i] : i;
                 if (!checkBox1.Checked && names[id].Length > 1 && id != 32 && id != 160) continue;
-                charPanel.Items.Add(new ListViewItem(new string[] { $"{id:X2}", $"{id}", names[id] }) { ForeColor = GetColor(id) });
+                charPanel.Items.Add(new ListViewItem(new string[] { $"{id:X2}", $"{id}", names[id] }) {
+                    ForeColor = names[id].Length == 1 || id == 32 || id == 160 ? Color.Black : Color.Crimson
+                });
             }
-        }
-
-        private Color GetColor(int id)
-        {
-            if (names[id].Length == 0 || id == 32 || id == 160) return Color.Black;
-            return Color.Crimson;
         }
     }
 }

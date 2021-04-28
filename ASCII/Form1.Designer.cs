@@ -83,8 +83,8 @@
             this.description.Padding = new System.Windows.Forms.Padding(4);
             this.description.Size = new System.Drawing.Size(176, 92);
             this.description.TabIndex = 5;
-            this.description.Text = "Created by voltavidTony\r\non March 6, 2018\r\nVersion 1.1\r\n\r\nWindows 1252\r\nDouble cl" +
-    "ick to insert";
+            this.description.Text = "Created by voltavidTony\r\non April 28, 2021\r\nVersion 1.2\r\n\r\nWindows 1252\r\nDouble c" +
+    "lick to insert";
             this.description.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.description.Paint += new System.Windows.Forms.PaintEventHandler(this.Border_Paint);
             // 
@@ -112,6 +112,7 @@
             this.charPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.charPanel.FullRowSelect = true;
             this.charPanel.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.charPanel.HideSelection = false;
             this.charPanel.LabelWrap = false;
             this.charPanel.Location = new System.Drawing.Point(1, 1);
             this.charPanel.Margin = new System.Windows.Forms.Padding(0);

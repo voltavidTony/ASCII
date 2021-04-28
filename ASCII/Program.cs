@@ -19,16 +19,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>
 using System.Threading;
 using System.Windows.Forms;
 
-namespace ASCII
-{
-    static class Program
-    {
-        private static Mutex mutex = null;
-
+namespace ASCII {
+    static class Program {
         [System.STAThread]
-        static void Main()
-        {
-            mutex = new Mutex(true, "AE0C75E0-47CE-4112-8FEA-E9DED9C748C0", out bool created);
+        static void Main() {
+            new Mutex(true, "AE0C75E0-47CE-4112-8FEA-E9DED9C748C0", out bool created);
             if (!created) return;
 
             Application.EnableVisualStyles();
