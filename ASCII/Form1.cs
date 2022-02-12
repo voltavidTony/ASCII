@@ -19,37 +19,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace ASCII {
     public partial class ASCIIWindow : Form {
-        [DllImport("dwmapi.dll", EntryPoint = "#127")]
-        static extern void DwmGetColorizationParameters(out DWMCOLORIZATIONcolors colors);
-        public struct DWMCOLORIZATIONcolors {
-            public uint ColorizationColor,
-                ColorizationAfterglow,
-                ColorizationColorBalance,
-                ColorizationAfterglowBalance,
-                ColorizationBlurBalance,
-                ColorizationGlassReflectionIntensity,
-                ColorizationOpaqueBlend;
-        }
-        Color AccentColor {
-            get {
-                DwmGetColorizationParameters(out DWMCOLORIZATIONcolors colors);
-                return Color.FromArgb((int)colors.ColorizationColor | ~0xFFFFFF);
-            }
-        }
-
-        [DllImport("User32.dll")]
-        static extern bool ReleaseCapture();
-        [DllImport("User32.dll")]
-        static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
-
-        Color PenColor = Color.Black;
+        Color AccentColor = Methods.GetAccentColor(), PenColor = Color.Black;
         float PenWidth = 0.2f;
-
         bool changing = false;
 
         readonly int[] lexicoid = { 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 65, 192, 193, 194, 195, 196, 197, 198, 66, 67, 199, 68, 69, 200,
@@ -85,9 +60,8 @@ namespace ASCII {
 
         protected override void WndProc(ref Message m) {
             if (m.Msg == 0x320) {
-                charPanelBorder.Invalidate();
-                tableOptions.Invalidate();
-                description.Invalidate();
+                AccentColor = Methods.GetAccentColor();
+                windowBorder.Invalidate();
             }
             base.WndProc(ref m);
         }
@@ -97,21 +71,18 @@ namespace ASCII {
             RefreshCharPanel();
             Height = charPanel.Items[16].Bounds.Y + 2;
             Width = (columnHeaderHex.Width + columnHeaderValue.Width + columnHeaderChar.Width + SystemInformation.VerticalScrollBarWidth + 2) * 2;
+            windowBorder.BringToFront();
         }
 
-        private void CloseButton_Click(object sender, EventArgs e) => Application.Exit();
-
-        private void PanelDrag_MouseDown(object sender, MouseEventArgs e) {
-            ReleaseCapture();
-            SendMessage(Handle, 0xA1, 0x2, 0);
-            int i = charPanel.TopItem.Index;
-            if (i > 0) charPanel.TopItem = charPanel.Items[i - 1];
-            else charPanel.TopItem = charPanel.Items[1];
-            charPanel.TopItem = charPanel.Items[i];
-        }
-
-        private void Border_Paint(object sender, PaintEventArgs e) {
-            if (sender is Control c) e.Graphics.DrawRectangle(new Pen(AccentColor, 1), new Rectangle(0, 0, c.Width - 1, c.Height - 1));
+        private void RefreshCharPanel() {
+            charPanel.Items.Clear();
+            for (int i = 0; i < 256; i++) {
+                int id = checkBox2.Checked ? lexicoid[i] : i;
+                if (!checkBox1.Checked && names[id].Length > 1 && id != 32 && id != 160) continue;
+                charPanel.Items.Add(new ListViewItem(new string[] { $"{id:X2}", $"{id}", names[id] }) {
+                    ForeColor = names[id].Length == 1 || id == 32 || id == 160 ? Color.Black : Color.Crimson
+                });
+            }
         }
 
         private void CharPanel_ColumnWidthChanging(object sender, ColumnWidthChangingEventArgs e) {
@@ -141,12 +112,7 @@ namespace ASCII {
             else if (!changing) trackOpaque.Value = checkBox3.Checked ? 70 : 100;
         }
 
-        private void TrackOpaque_ValueChanged(object sender, EventArgs e) {
-            changing = true;
-            labelOpaque.Text = $"{trackOpaque.Value} %";
-            checkBox3.Checked = (Opacity = trackOpaque.Value / 100.0) != 1.0;
-            changing = false;
-        }
+        private void CloseButton_Click(object sender, EventArgs e) => Application.Exit();
 
         private void CloseButton_MouseEnter(object sender, EventArgs e) {
             PenColor = Color.White;
@@ -174,15 +140,27 @@ namespace ASCII {
             e.Graphics.DrawPath(new Pen(PenColor, 1), closeX);
         }
 
-        private void RefreshCharPanel() {
-            charPanel.Items.Clear();
-            for (int i = 0; i < 256; i++) {
-                int id = checkBox2.Checked ? lexicoid[i] : i;
-                if (!checkBox1.Checked && names[id].Length > 1 && id != 32 && id != 160) continue;
-                charPanel.Items.Add(new ListViewItem(new string[] { $"{id:X2}", $"{id}", names[id] }) {
-                    ForeColor = names[id].Length == 1 || id == 32 || id == 160 ? Color.Black : Color.Crimson
-                });
-            }
+        private void PanelDrag_MouseDown(object sender, MouseEventArgs e) {
+            NativeMethods.ReleaseCapture();
+            NativeMethods.SendMessage(Handle, 0xA1, 0x2, 0);
+            int i = charPanel.TopItem.Index;
+            if (i > 0) charPanel.TopItem = charPanel.Items[i - 1];
+            else charPanel.TopItem = charPanel.Items[1];
+            charPanel.TopItem = charPanel.Items[i];
+        }
+
+        private void TrackOpaque_ValueChanged(object sender, EventArgs e) {
+            changing = true;
+            labelOpaque.Text = $"{trackOpaque.Value} %";
+            checkBox3.Checked = (Opacity = trackOpaque.Value / 100.0) != 1.0;
+            changing = false;
+        }
+
+        private void Window_Border_Paint(object sender, PaintEventArgs e) {
+            Pen borderPen = new Pen(AccentColor, 1);
+            e.Graphics.DrawRectangle(borderPen, charPanel.BorderBounds());
+            e.Graphics.DrawRectangle(borderPen, description.BorderBounds());
+            e.Graphics.DrawRectangle(borderPen, tableOptions.BorderBounds());
         }
     }
 }
