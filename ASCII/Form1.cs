@@ -23,8 +23,11 @@ using System.Windows.Forms;
 
 namespace ASCII {
     public partial class ASCIIWindow : Form {
-        Color AccentColor = Methods.GetAccentColor(), PenColor = Color.Black;
+        Color PenColor = Color.Black;
         float PenWidth = 0.2f;
+
+        readonly Pen AccentPen = new Pen(Methods.GetAccentColor(), 1);
+
         bool changing = false;
 
         readonly int[] lexicoid = { 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 65, 192, 193, 194, 195, 196, 197, 198, 66, 67, 199, 68, 69, 200,
@@ -58,10 +61,17 @@ namespace ASCII {
             }
         }
 
+        protected override void OnPaint(PaintEventArgs e) {
+            base.OnPaint(e);
+            e.Graphics.DrawRectangle(AccentPen, charPanel.BorderBounds());
+            e.Graphics.DrawRectangle(AccentPen, description.BorderBounds());
+            e.Graphics.DrawRectangle(AccentPen, tableOptions.BorderBounds());
+        }
+
         protected override void WndProc(ref Message m) {
-            if (m.Msg == 0x320) {
-                AccentColor = Methods.GetAccentColor();
-                windowBorder.Invalidate();
+            if (m.Msg == 0x0320) {
+                AccentPen.Color = Methods.GetAccentColor();
+                Invalidate();
             }
             base.WndProc(ref m);
         }
@@ -71,7 +81,6 @@ namespace ASCII {
             RefreshCharPanel();
             Height = charPanel.Items[16].Bounds.Y + 2;
             Width = (columnHeaderHex.Width + columnHeaderValue.Width + columnHeaderChar.Width + SystemInformation.VerticalScrollBarWidth + 2) * 2;
-            windowBorder.BringToFront();
         }
 
         private void RefreshCharPanel() {
@@ -154,13 +163,6 @@ namespace ASCII {
             labelOpaque.Text = $"{trackOpaque.Value} %";
             checkBox3.Checked = (Opacity = trackOpaque.Value / 100.0) != 1.0;
             changing = false;
-        }
-
-        private void Window_Border_Paint(object sender, PaintEventArgs e) {
-            Pen borderPen = new Pen(AccentColor, 1);
-            e.Graphics.DrawRectangle(borderPen, charPanel.BorderBounds());
-            e.Graphics.DrawRectangle(borderPen, description.BorderBounds());
-            e.Graphics.DrawRectangle(borderPen, tableOptions.BorderBounds());
         }
     }
 }

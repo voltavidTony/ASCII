@@ -38,7 +38,6 @@
             this.columnHeaderHex = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderValue = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderChar = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.windowBorder = new ASCII.TransparentPanel();
             this.tableMain.SuspendLayout();
             this.tableOptions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackOpaque)).BeginInit();
@@ -256,17 +255,6 @@
             this.columnHeaderChar.Text = "Character";
             this.columnHeaderChar.Width = 80;
             // 
-            // windowBorder
-            // 
-            this.windowBorder.BackColor = System.Drawing.Color.Transparent;
-            this.windowBorder.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.windowBorder.Enabled = false;
-            this.windowBorder.Location = new System.Drawing.Point(0, 0);
-            this.windowBorder.Name = "windowBorder";
-            this.windowBorder.Size = new System.Drawing.Size(432, 432);
-            this.windowBorder.TabIndex = 11;
-            this.windowBorder.Paint += new System.Windows.Forms.PaintEventHandler(this.Window_Border_Paint);
-            // 
             // ASCIIWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -274,7 +262,6 @@
             this.BackColor = System.Drawing.Color.Lime;
             this.ClientSize = new System.Drawing.Size(432, 432);
             this.Controls.Add(this.tableMain);
-            this.Controls.Add(this.windowBorder);
             this.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -303,7 +290,6 @@
         private System.Windows.Forms.CheckBox checkBox3;
         private System.Windows.Forms.Label description;
         private System.Windows.Forms.CheckBox checkBox1;
-        private ASCII.TransparentPanel windowBorder;
         private System.Windows.Forms.ListView charPanel;
         private System.Windows.Forms.ColumnHeader columnHeaderHex;
         private System.Windows.Forms.ColumnHeader columnHeaderValue;
