@@ -164,5 +164,15 @@ namespace ASCII {
             checkBox3.Checked = (Opacity = trackOpaque.Value / 100.0) != 1.0;
             changing = false;
         }
+
+        [System.STAThread]
+        static void Main() {
+            new System.Threading.Mutex(true, "AE0C75E0-47CE-4112-8FEA-E9DED9C748C0", out bool created);
+            if (!created) return;
+
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new ASCIIWindow());
+        }
     }
 }
